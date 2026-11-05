@@ -1,12 +1,6 @@
 #!/bin/bash
 
-# Verifie si une ville est choisie
-if [ "$1" = "" ];
-then
-    echo "usage:$0 <ville>"
-    exit 1
-fi
-ville=$1
+ville=${1:-Toulouse}
 
 # Selectionne la date et heure actuelle
 date=$(date  +"%Y-%m-%d %H:%M:%S")
