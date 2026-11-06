@@ -13,7 +13,7 @@ date=$(date  +"%Y-%m-%d %H:%M:%S")
 
 # Cree un fichier pour les donnees meteorologiques de la ville choisie
 donnees_meteoVille="meteo_ville.txt"
-curl -s "https://wttr.in/${ville}?format=j1" >"$donnees_meteoVille"
+curl -s "https://wttr.in/${ville}?T" >"$donnees_meteoVille"
 
 if [ "$donnees_meteoVille" = "" ];
 then
@@ -22,8 +22,12 @@ then
 fi
 
 # Récupère les températures dans le fichier des donnees meteos
-tempActuelle=$(grep -m1 '"temp_C"' "$donnees_meteoVille" | sed 's/[^0-9\-]//g')
-tempDemain=$(grep -m1 '"avgtempC"' "$donnees_meteoVille" | sed 's/[^0-9\-]//g')
+val_temp=$(head -n 4 "$donnees_meteoVille" | tail -n 1 | cut -d'(' -f1 | tr ' ' '\n' | grep -v '^$' | tail -n 1 | tr -d '+')
+tempActuelle="${val_temp}°C"
+
+val_demain=$(grep "°C" "$donnees_meteoVille" | head -n 3 | tail -n 1 | cut -d'(' -f1 | tr ' ' '\n' | grep -v '^$' | tail -n 1 | tr -d '+')
+tempDemain="${val_demain}°C"
+
 
 if [ -z "$tempActuelle" ]; then
     tempActuelle="N/A"
