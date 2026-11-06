@@ -69,6 +69,7 @@ Nous obtenons alors ce menu :
 On ajoute a la fin de ce fichier la ligne suivante :
 
 **Syntaxe** :
+
 ┌───────── minute (0-59)
 
 │ ┌─────── heure (0-23)
