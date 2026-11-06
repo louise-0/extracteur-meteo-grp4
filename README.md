@@ -66,5 +66,19 @@ Nous obtenons alors ce menu :
 
 ### Étape 3 : Configuration de la tache cron.
 
-On ajoute a la fin de ce fichier la sythaxe suivante :
+On ajoute a la fin de ce fichier la ligne suivante :
+
+####Syntaxe :
+┌───────── minute (0-59)
+│ ┌─────── heure (0-23)
+│ │ ┌───── jour du mois (1-31)
+│ │ │ ┌─── mois (1-12)
+│ │ │ │ ┌─ jour de la semaine (0-7, 0 et 7 = dimanche)
+│ │ │ │ │
+* * * * * chemin/du/code/a/executer >> /chemin/cron.log 2>&1
+
+```bash
+* * * * * /home/projet/Extracteur_meteo.sh >> /home/projet/cron.log 2>&1
+```
+Execution toute les minutes du code Extracteur_meteo.sh et toute les erreurs sont rediriger vers le fichier cron.log
 
