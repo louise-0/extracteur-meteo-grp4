@@ -25,18 +25,21 @@ cat meteo.txt
 
 ## III/Configuration de l'automatisation avec Cron
 
-La météo de la ville choisie est rajouter automatiquement tous les ~(jours, heures, ???? Faudra que vous mettiez ici)~ dans le fichier `meteo.txt` grâce à l'outil `cron`.
+La météo de la ville choisie est rajouter periodiquement dans le fichier meteo.txt grâce a cron.
 
-A EXPLIQUER
 
-### Étape 1 : sous-titre1
-si vous souhaitez mettre du code mais c'est pas hyper conseillé :
+### Étape 1 : Rendre le script exécutable.
 ```bash
-crontab je sais pas quoi
+chmod +x Extracteur_meteo.sh
 ```
 
-### Étape 2 : sous-titre2
-je sais pas
+### Étape 2 : Ouvrir le crontab.
+```bash
+crontab -e
+```
+Nous obtenons alors ce menu :
+```bash
 
+```
 ### Étape 3 : sous-titre3
 je sais pas
