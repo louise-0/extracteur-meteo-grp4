@@ -7,7 +7,7 @@ L'objectif du projet est de développer un script capable d'extraire de manière
 Le script respecte les contraintes suivantes :
 - __Les Données extraites__ : La température actuelle de la ville + les prévisions météorologiques du lendemain.
 - __Le Format d'enregistrement__ : Les données sont stockées dans un fichier texte nommé `meteo.txt`. **Chaque extraction apparaît sur une seule ligne** (historisation chronologique grâce au `cron`).
-- __Le Suivi du Projet & La Collaboration__ : Utilisation de **GIT** pour réaliser l'historique des versions ainsi que de **Teams** pour discuter de l'avancé du projet et de **Jira** pour visualiser les différentes tâches qui composent le projet et sa durée.
+- __Le Suivi du Projet & La Collaboration__ : Utilisation de **GIT / GITHUB** pour réaliser l'historique des versions ainsi que de **Teams** pour discuter de l'avancé du projet et de **Jira** pour visualiser les différentes tâches qui composent le projet et sa durée.
 
 ## II/Exécution du script manuellement
 
