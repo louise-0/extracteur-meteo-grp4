@@ -89,3 +89,9 @@ On ajoute a la fin de ce fichier la ligne suivante :
 ```
 Execution toute les minutes du code Extracteur_meteo.sh et toute les erreurs sont rediriger vers le fichier cron.log
 
+
+### Étape 4 : Verification de la configuration.
+
+```bash
+crontab -l
+```
