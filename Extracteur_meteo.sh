@@ -36,5 +36,7 @@ fi
 
 jour=$(date +"%Y-%m-%d")
 heure=$(date +"%H:%M")
+fichier="meteo_$(date +%Y-%m-%d).txt"
+
 echo "${jour} - ${heure} - ${ville} : ${tempActuelle}°C - ${tempDemain}°C" >> meteo.txt
 echo "Les données météorologiques de ${ville} ont été formatées et enregistrées dans meteo.txt."
