@@ -1,44 +1,35 @@
 #!/bin/bash
-
-# Gestion de la ville 
+# Version 2 : ville par défaut si aucun argument
 ville=${1:-"Toulouse"}
 
-donnees_meteoVille="meteo_ville.txt"
+# Date et heure (printf intégré à bash, date n'est pas autorisée)
+printf -v jour '%(%Y-%m-%d)T' -1
+printf -v heure '%(%H:%M)T' -1
 
+# Fichier des données météo brutes (format texte de wttr.in)
+donnees_meteoVille="meteo_ville.txt"
 curl -s "https://wttr.in/${ville}?T" > "$donnees_meteoVille"
 
-# Contrôle de la réussite de la requête
+# Contrôle : fichier vide = échec de la requête
 if [ ! -s "$donnees_meteoVille" ]; then
-    echo "Erreur ! Impossible de récupérer la météo pour ${ville}."
-    exit 1
+    echo "Erreur! Impossible de recuperer la meteo"
+    exit 2
 fi
 
+# Toutes les températures du fichier, dans l'ordre
+temps=$(grep -oE '[-+]?[0-9]+(\([-+]?[0-9]+\))? °C' "$donnees_meteoVille")
 
-# Température actuelle 
-val_temp=$(head -n 4 "$donnees_meteoVille" | tail -n 1 | cut -d'(' -f1 | tr ' ' '\n' | grep -v '^$' | tail -n 1 | tr -d '+')
-tempActuelle="${val_temp}°C"
+# 1re = température actuelle ; 7e = demain à midi
+tempActuelle=$(echo "$temps" | head -1 | cut -d'(' -f1 | cut -d' ' -f1 | tr -d '+')
+tempDemain=$(echo "$temps" | head -7 | tail -1 | cut -d'(' -f1 | cut -d' ' -f1 | tr -d '+')
 
-# Vent actuel 
-val_vent=$(head -n 5 "$donnees_meteoVille" | tail -n 1 | cut -d'k' -f1 | tr ' ' '\n' | grep -v '^$' | tail -n 1)
-vent="${val_vent} km/h"
+if [ -z "$tempActuelle" ]; then
+    exit 3
+fi
 
-# Visibilité 
-val_visib=$(head -n 6 "$donnees_meteoVille" | tail -n 1 | cut -d'k' -f1 | tr ' ' '\n' | grep -v '^$' | tail -n 1)
-visibilite="${val_visib} km"
+if [ -z "$tempDemain" ]; then
+    exit 4
+fi
 
-# Humidité 
-val_hum=$(grep -m1 "%" "$donnees_meteoVille" | cut -d'%' -f1 | tr ' ' '\n' | grep -v '^$' | tail -n 1)
-humidite="${val_hum}%"
-
-# Prévision du lendemain 
-val_demain=$(grep "°C" "$donnees_meteoVille" | head -n 3 | tail -n 1 | cut -d'(' -f1 | tr ' ' '\n' | grep -v '^$' | tail -n 1 | tr -d '+')
-tempDemain="${val_demain}°C"
-
-# Horodatage
-date_actuelle=$(date +"%Y-%m-%d")
-heure_actuelle=$(date +"%H:%M")
-
-# Écriture du résultat dans meteo.txt
-echo "${date_actuelle} - ${heure_actuelle} - Ville: ${ville} - Temp actuelle: ${tempActuelle} - Prévision demain: ${tempDemain} - Vent: ${vent} - Humidité: ${humidite} - Visibilité: ${visibilite}" >> meteo.txt
-
-echo "Données enregistrées avec succès dans meteo.txt pour ${ville}."
+echo "${jour} - ${heure} - ${ville} : ${tempActuelle}°C - ${tempDemain}°C" >> meteo.txt
+echo "Les données météorologiques de ${ville} ont été formatées et enregistrées dans meteo.txt."
