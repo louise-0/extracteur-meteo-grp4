@@ -25,7 +25,7 @@ cat meteo.txt
 
 ## III/Configuration de l'automatisation avec Cron
 
-La météo de la ville choisie est rajouter periodiquement dans le fichier meteo.txt grâce a cron.
+Les données météo de la ville choisie sont rajoutées périodiquement dans le fichier meteo.txt grâce à l'outil `cron`.
 
 
 ### Étape 1 : Rendre le script exécutable.
