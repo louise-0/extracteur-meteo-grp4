@@ -1,11 +1,10 @@
 #!/bin/bash
-# Version 2 + Variante 2 : option -j pour sauvegarder en JSON
 
-# Date et heure (printf intégré à bash, date n'est pas autorisée)
+# Date et heure 
 printf -v jour '%(%Y-%m-%d)T' -1
 printf -v heure '%(%H:%M)T' -1
 
-# Option JSON (doit être le 1er argument)
+# Option JSON 
 format="txt"
 if [ "$1" = "-j" ]; then
     format="json"
