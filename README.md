@@ -68,7 +68,7 @@ Nous obtenons alors ce menu :
 
 On ajoute a la fin de ce fichier la ligne suivante :
 
-####Syntaxe :
+Syntaxe :
 ┌───────── minute (0-59)
 │ ┌─────── heure (0-23)
 │ │ ┌───── jour du mois (1-31)
