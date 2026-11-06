@@ -95,3 +95,36 @@ Execution toute les minutes du code Extracteur_meteo.sh et toute les erreurs son
 ```bash
 crontab -l
 ```
+
+## IV/Variante 2 : Sauvegarde au format JSON
+
+En plus du fichier texte `meteo.txt`, le script peut enregistrer les données au format **JSON** grâce à l'option `-j`.
+
+### Utilisation
+L'option `-j` doit être placée **en premier argument**, la ville vient ensuite (sinon la ville par défaut est utilisée) :
+```bash
+./Extracteur_meteo.sh -j "Toulouse"
+```
+Sans l'option `-j`, le script fonctionne comme avant et écrit dans `meteo.txt`.
+
+### Résultat
+Chaque exécution **ajoute une ligne** (un objet JSON) à la fin du fichier `meteo.json` :
+```json
+{"date": "2026-11-06", "heure": "17:47", "ville": "Toulouse", "temperature": "15°C", "prevision": "13°C"}
+```
+Pour vérifier le résultat :
+```bash
+tail -1 meteo.json
+```
+
+### Fonctionnement
+- Le script lit toujours le format **texte** de wttr.in (`?T`), comme l'impose le sujet.
+- Le JSON est construit à la main avec `echo` : aucune commande interdite n'est utilisée.
+- La date et l'heure sont obtenues avec `printf` (fonction intégrée à bash), car la commande `date` n'est pas autorisée.
+
+### Utilisation avec Cron
+L'option `-j` fonctionne aussi avec la tâche cron de la partie III :
+```bash
+* * * * * /home/projet/Extracteur_meteo.sh -j >> /home/projet/cron.log 2>&1
+```
+Exécution toutes les minutes avec enregistrement dans `meteo.json`.
